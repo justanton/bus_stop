@@ -5,6 +5,14 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Tasks } from '../api/tasks.js';
 
 import Task from './Task.jsx';
+// import Venue from './Venue.jsx'
+
+var params = {};
+params.query = 'Food';
+params.near = 'Helsinki';
+var resultV = Foursquare.find(params, function(error, result) {
+  return result;
+});
 
 import MainAd from './MainAd.jsx'
 import LocalAd from './LocalAd.jsx'
@@ -33,14 +41,11 @@ class App extends Component {
     ));
   }
 
-  // componentDidMount() {
-  //   setInterval(() => {
-  //     document.getElementById('flashing-ad').style.display = 'block';
-  //     setTimeout(() => {
-  //       document.getElementById('flashing-ad').style.display = 'none'
-  //     }, 1)
-  //   }, 500);
-  // }
+  renderVenues() {
+    return this.props.map((venue) => (
+      <li>{venue.name}</li>
+    ));
+  }
 
   render() {
     return (
@@ -54,6 +59,7 @@ class App extends Component {
 
         <header>
           <h1>Community board</h1>
+          <h2>Number of messages: {Tasks.find().count()}</h2>
 
           <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
             <input
@@ -66,7 +72,14 @@ class App extends Component {
 
         <ul>
           {this.renderTasks()}
+<<<<<<< HEAD
         </ul>*/}
+=======
+        </ul>
+        <ul>
+          {this.renderVenues()}
+        </ul>
+>>>>>>> 84929eea4dace3a1ba6263931144622c4e08bcda
       </div>
     );
   }
@@ -74,10 +87,12 @@ class App extends Component {
 
 App.propTypes = {
   tasks: PropTypes.array.isRequired,
+  venues: PropTypes.array.isRequired
 };
 
 export default createContainer(() => {
   return {
     tasks: Tasks.find({}, { sort : { createdAt: -1 }}).fetch(),
+    venues: []
   };
 }, App);
