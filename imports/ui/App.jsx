@@ -5,9 +5,36 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Tasks } from '../api/tasks.js';
 
 import Task from './Task.jsx';
+// import Venue from './Venue.jsx'
+
+
+import MainAd from './MainAd.jsx'
+import LocalAd from './LocalAd.jsx'
+import OptionBar from './OptionBar.jsx'
 
 // App component - represents the whole app
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {fullscreen: true, venues: []}
+
+    this.getVenues();
+
+    // setInterval(() => {
+    //   this.setState(Object.assign(this.state, {fullscreen: !this.state.fullscreen}));
+    //   console.log("State changed: fullscreen = " + this.state.fullscreen)
+    // }, 10000);
+  }
+  getVenues() {
+    var params = {};
+    params.query = 'Food';
+    params.near = 'Helsinki';
+    Foursquare.find(params, (error, result) => {
+      console.log(result.response.venues)
+      if (error) console.log(error);
+      else this.setState(Object.assign(this.state, {venues: result.response.venues}))
+    })
+  }
   handleSubmit(event) {
     event.preventDefault();
 
@@ -29,23 +56,23 @@ class App extends Component {
     ));
   }
 
+  renderVenues() {
+    // console.log(this.state.venues)
+    return this.state.venues.map((venue) => (
+      <li>{venue.name}</li>
+    ));
+  }
+
   render() {
+
     return (
       <div className="container">
-        <header>
-          <h1>Community board</h1>
-
-          <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
-            <input
-              type="text"
-              ref="textInput"
-              placeholder="Type your message here"
-            />
-          </form>
-        </header>
+        {/*<MainAd fullscreen={this.state.fullscreen} />
+        <OptionBar fullscreen={this.state.fullscreen} />
+        <LocalAd fullscreen={this.state.fullscreen} />*/}
 
         <ul>
-          {this.renderTasks()}
+          {this.renderVenues()}
         </ul>
       </div>
     );
@@ -58,6 +85,6 @@ App.propTypes = {
 
 export default createContainer(() => {
   return {
-    tasks: Tasks.find({}, { sort : { createdAt: -1 }}).fetch(),
+    tasks: Tasks.find({}, { sort : { createdAt: -1 }}).fetch()
   };
 }, App);
