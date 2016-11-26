@@ -5,14 +5,6 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Tasks } from '../api/tasks.js';
 
 import Task from './Task.jsx';
-// import Venue from './Venue.jsx'
-
-var params = {};
-params.query = 'Food';
-params.near = 'Helsinki';
-var resultV = Foursquare.find(params, function(error, result) {
-  return result;
-});
 
 // App component - represents the whole app
 class App extends Component {
@@ -37,12 +29,6 @@ class App extends Component {
     ));
   }
 
-  renderVenues() {
-    return this.props.map((venue) => (
-      <li>{venue.name}</li>
-    ));
-  }
-
   render() {
     return (
       <div className="container">
@@ -62,22 +48,17 @@ class App extends Component {
         <ul>
           {this.renderTasks()}
         </ul>
-        <ul>
-          {this.renderVenues()}
-        </ul>
       </div>
     );
   }
 }
 
 App.propTypes = {
-  tasks: PropTypes.array.isRequired,
-  venues: PropTypes.array.isRequired
+  tasks: PropTypes.array.isRequired
 };
 
 export default createContainer(() => {
   return {
     tasks: Tasks.find({}, { sort : { createdAt: -1 }}).fetch(),
-    venues: []
   };
 }, App);
