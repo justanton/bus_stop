@@ -5,6 +5,8 @@ import ReactDOM from 'react-dom';
 
 export default class RecomendationButton extends Component {
   analyzeImage() {
+    console.log(Session.get("analyzeImageResult"));
+    Session.set("analyzeImageResult", {});
     event.preventDefault();
     Meteor.call("analyzeImage", function(error, result){
       if(error){
@@ -13,7 +15,6 @@ export default class RecomendationButton extends Component {
         Session.set("analyzeImageResult", result);
       }
     });
-    
   }
 
   render() {
