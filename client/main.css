@@ -124,3 +124,44 @@ header .hide-completed {
     padding-bottom: 5px;
   }
 }
+
+#main-ad.active {
+  transition: top ease-in 0.4s, left ease-in 0.4s, height ease-in 0.4s, width ease-in 0.4s;
+  position: relative;
+  top: 4vh;
+  left: 4vw;
+  width: 92vw;
+  height: 60vh;
+}
+
+#main-ad.active.full {
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+}
+
+#local-ad {
+  display: none;
+  position: relative
+}
+#local-ad .active {
+  display: block;
+}
+
+#option-bar {
+  display: none;
+}
+
+/*.flashing-ad {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index:10000;
+  display: none;
+  background-image: url("https://ruoka.citymarket.fi/Image/products/6411300000494.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}*/

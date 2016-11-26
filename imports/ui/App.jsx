@@ -6,6 +6,10 @@ import { Tasks } from '../api/tasks.js';
 
 import Task from './Task.jsx';
 
+import MainAd from './MainAd.jsx'
+import LocalAd from './LocalAd.jsx'
+import OptionBar from './OptionBar.jsx'
+
 // App component - represents the whole app
 class App extends Component {
   handleSubmit(event) {
@@ -29,9 +33,25 @@ class App extends Component {
     ));
   }
 
+  // componentDidMount() {
+  //   setInterval(() => {
+  //     document.getElementById('flashing-ad').style.display = 'block';
+  //     setTimeout(() => {
+  //       document.getElementById('flashing-ad').style.display = 'none'
+  //     }, 1)
+  //   }, 500);
+  // }
+
   render() {
     return (
       <div className="container">
+        <MainAd fullscreen={this.state.fullscreen} />
+        <OptionBar fullscreen={this.state.fullscreen} />
+        <LocalAd fullscreen={this.state.fullscreen} />
+
+        {/*
+          <div id="flashing-ad" className="flashing-ad"></div>
+
         <header>
           <h1>Community board</h1>
 
@@ -46,7 +66,7 @@ class App extends Component {
 
         <ul>
           {this.renderTasks()}
-        </ul>
+        </ul>*/}
       </div>
     );
   }
