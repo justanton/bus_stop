@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { createContainer } from 'meteor/react-meteor-data';
-
+import { Session } from 'meteor/session'
 import { Tasks } from '../api/tasks.js';
 
 import Task from './Task.jsx';
@@ -15,11 +15,13 @@ import OptionBar from './OptionBar.jsx'
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {fullscreen: true, venues: []}
+    this.state = {fullscreen: true, venues: [] }
 
     this.getVenues();
 
+
   }
+
   getVenues() {
     var params = {};
     params.query = 'Food';
@@ -52,23 +54,46 @@ class App extends Component {
   }
 
   renderVenues() {
-    // console.log(this.state.venues)
     return this.state.venues.map((venue) => (
       <li>{venue.name}</li>
     ));
   }
 
+
+  new_form() {
+    Session.set("user_message", document.getElementById("mess_board").value);
+  }
+
   render() {
 
     return (
-      <div className="container">
+
+    <div className="container">
+      <header>
+          <h1>Community Voice</h1>
+          <h2>Number of messages: { Tasks.find().count()} </h2>
+
+          <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
+            <input
+              type="text"
+              id="mess_board"
+              onSubmit={this.new_form}
+              onChange={this.new_form}
+              ref="textInput"
+              placeholder="Write your message here"
+            />
+          </form>
+      </header>
+
+      {console.log(Session.get("user_message"))};
+
         {/*<MainAd fullscreen={this.state.fullscreen} />
         <OptionBar fullscreen={this.state.fullscreen} />
         <LocalAd fullscreen={this.state.fullscreen} />*/}
 
         <ul>
           {this.renderTasks()}
-          {this.renderVenues()}
+          {/* {this.renderVenues()} */}
         </ul>
       </div>
     );
