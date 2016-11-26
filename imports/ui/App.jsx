@@ -54,32 +54,9 @@ class App extends Component {
         <OptionBar fullscreen={this.state.fullscreen} />
         <LocalAd fullscreen={this.state.fullscreen} />
 
-        {/*
-          <div id="flashing-ad" className="flashing-ad"></div>
-
-        <header>
-          <h1>Community board</h1>
-          <h2>Number of messages: {Tasks.find().count()}</h2>
-
-          <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
-            <input
-              type="text"
-              ref="textInput"
-              placeholder="Type your message here"
-            />
-          </form>
-        </header>
-
-        <ul>
-          {this.renderTasks()}
-<<<<<<< HEAD
-        </ul>*/}
-=======
-        </ul>
         <ul>
           {this.renderVenues()}
         </ul>
->>>>>>> 84929eea4dace3a1ba6263931144622c4e08bcda
       </div>
     );
   }
