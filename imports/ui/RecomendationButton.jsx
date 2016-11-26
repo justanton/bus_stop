@@ -1,0 +1,26 @@
+import React, { Component, PropTypes } from 'react';
+import { Session } from 'meteor/session'
+import { EJSON } from 'meteor/ejson'
+import ReactDOM from 'react-dom';
+
+export default class RecomendationButton extends Component {
+  analyzeImage() {
+    event.preventDefault();
+    Meteor.call("analyzeImage", function(error, result){
+      if(error){
+        alert('Error');
+      }else{
+        Session.set("analyzeImageResult", result);
+      }
+    });
+
+  }
+
+  render() {
+    return (
+      <div>
+        <button className='getRecommendation' onClick={this.analyzeImage.bind(this)}>Get recomendation</button>
+      </div>
+    );
+  }
+}

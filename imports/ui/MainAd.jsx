@@ -5,7 +5,18 @@ class MainAd extends React.Component {
     super(props)
   }
   render() {
-    let className = this.props.fullscreen ? 'active full' : 'active';
+    let className;
+    switch (this.props.mode) {
+      case 'main-fullscreen':
+        className = 'active full'
+        break;
+      case 'main-menus':
+        className = 'active';
+        break;
+      default:
+        className = 'hidden';
+        break;
+    }
     return (
     <section id="main-ad" className={className}>
       <h1>

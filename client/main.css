@@ -18,10 +18,10 @@ body {
 }
 
 .container {
-  max-width: 600px;
+  /*max-width: 600px;*/
   margin: 0 auto;
   min-height: 100%;
-  background: white;
+  /*background: white;*/
 }
 
 header {
@@ -126,31 +126,52 @@ header .hide-completed {
 }
 
 #main-ad.active {
-  transition: top ease-in 0.4s, left ease-in 0.4s, height ease-in 0.4s, width ease-in 0.4s;
-  position: relative;
-  top: 4vh;
-  left: 4vw;
+  transition: margin-top ease-in 0.4s, margin-left ease-in 0.4s, height ease-in 0.4s, width ease-in 0.4s;
+  margin-top: 2vh;
+  margin-left: 4vw;
   width: 92vw;
   height: 60vh;
+  border: 2px solid darkgrey;
 }
 
 #main-ad.active.full {
-  top: 0;
-  left: 0;
+  margin-top: 0;
+  margin-left: 0;
   height: 100vh;
   width: 100vw;
 }
 
-#local-ad {
-  display: none;
-  position: relative
-}
-#local-ad .active {
-  display: block;
+#local-ad.active {
+  margin-top: 4vh;
+  height: 12vh;
+  margin-left: 4vw;
+  width: 92vw;
+  border: 2px solid darkgrey;
 }
 
-#option-bar {
+#option-bar.active {
+  position: relative;
+  margin-top: 4vh;
+  height: 12vh;
+  margin-left: 4vw;
+  width: 92vw;
+  border: 2px solid darkgrey;
+}
+.hidden {
   display: none;
+}
+
+.option-bar-btn {
+  display: inline-block;
+  margin: 0 1%;
+  width: 15.333333333333%;
+  height: 100%;
+}
+.option-bar-long-btn {
+  display: inline-block;
+  margin: 0 1%;
+  width: 46%;
+  height: 100%;
 }
 
 /*.flashing-ad {

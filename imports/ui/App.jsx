@@ -15,11 +15,18 @@ import OptionBar from './OptionBar.jsx'
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {fullscreen: true, venues: [] }
+    this.state = {mode: 'main-menus', venues: []}
 
     this.getVenues();
 
+    modes = ['main-fullscreen', 'main-menus', 'restaurant-venues']
 
+    count = 1;
+    // setInterval(() => {
+    //   this.setState(Object.assign(this.state, {mode: modes[count % modes.length]}));
+    //   console.log("State changed: mode = " + this.state.mode)
+    //   count += 1;
+    // }, 10000);
   }
 
   getVenues() {
@@ -55,7 +62,7 @@ class App extends Component {
 
   renderVenues() {
     return this.state.venues.map((venue) => (
-      <li>{venue.name}</li>
+      <li key={venue.id}>{venue.name}</li>
     ));
   }
 
@@ -66,8 +73,19 @@ class App extends Component {
 
   render() {
 
-    return (
+    let applicationDiv;
+    switch (this.state.mode) {
+      case 'restaurant-venues':
+        applicationDiv = (<div><ul>
+          {this.renderVenues()}
+        </ul></div>);
+        break;
+      default:
+        applicationDiv = null;
+        break;
+    }
 
+    return (
     <div className="container">
       <header>
           <h1>Community Voice</h1>
@@ -83,6 +101,14 @@ class App extends Component {
               placeholder="Write your message here"
             />
           </form>
+
+          <MainAd mode={this.state.mode} />
+
+            {applicationDiv}
+
+          <OptionBar mode={this.state.mode} />
+          <LocalAd mode={this.state.mode} />
+
       </header>
 
       {console.log(Session.get("user_message"))};
