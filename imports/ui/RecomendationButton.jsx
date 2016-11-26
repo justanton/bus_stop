@@ -15,12 +15,13 @@ export default class RecomendationButton extends Component {
         Session.set("analyzeImageResult", result);
       }
     });
+
   }
 
   render() {
     return (
       <div>
-        <button className = 'getRecomendation' onClick={this.analyzeImage.bind(this)}>Get recomendation</button>
+        <button className='getRecommendation' onClick={this.analyzeImage.bind(this)}>Get recomendation</button>
       </div>
     );
   }
