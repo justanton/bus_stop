@@ -4,6 +4,7 @@ class OptionBar extends React.Component {
     constructor(props) {
       super(props)
     }
+
     render() {
         let className;
         switch (this.props.mode) {
@@ -31,7 +32,6 @@ class OptionBar extends React.Component {
                 <button id="news-travel" className="option-bar-long-btn" onClick={this.props.clickHandlers.news}>
                     Show news
                 </button>
-
             </section>
         )
     }

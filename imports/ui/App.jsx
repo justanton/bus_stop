@@ -17,14 +17,12 @@ import OptionBar from './OptionBar.jsx'
 class App extends Component {
   constructor(props) {
     super(props);
+
     this.state = { mode: 'main-menus', venues: []}
 
-    this.getVenues();
-
     modes = ['main-fullscreen', 'main-menus', 'restaurant-venues']
-
+    this.analyzeImageAndGetPlaces();
     count = 1;
-
     this.handleClickVenues = this.handleClickVenues.bind(this)
     // setInterval(() => {
     //   this.setState(Object.assign(this.state, {mode: modes[count % modes.length]}));
@@ -34,16 +32,43 @@ class App extends Component {
     // this.handleOptionClick = this.handleOptionClick.bind(this)
   }
 
+  analyzeImageAndGetPlaces() {
+    event.preventDefault();
+    Meteor.call("analyzeImage", function(error, result){
+      if(error){
+        alert('Error');
+      }else{
+        Session.set("age", result["age"]);
+        Session.set("gender", result["gender"])
+        Session.set("glasses", result["glasses"])
+      }
+    });
+    setTimeout(function(){
+      console.log(Session.get("gender"));
+      console.log(Session.get("age"));
+      console.log(Session.get("glasses"));
+      this.getVenues();
+    }, 6000);
+  }
+
   getVenues() {
+    var query = "";
+    if(Session.get("gender") == "male")
+      query += "pubs";
+    else {
+      query += "restaurant"
+    }
     var params = {};
-    params.query = 'Food';
+    params.query = query;
     params.near = 'Helsinki';
     Foursquare.find(params, (error, result) => {
       console.log(result.response.venues)
       if (error) console.log(error);
       else this.setState(Object.assign(this.state, {venues: result.response.venues}))
     })
+    return 0;
   }
+
   handleSubmit(event) {
     event.preventDefault();
 

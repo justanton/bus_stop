@@ -15,7 +15,6 @@ export default class RecomendationButton extends Component {
         Session.set("analyzeImageResult", result);
       }
     });
-
   }
 
   render() {
