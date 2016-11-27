@@ -5,7 +5,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Tasks } from '../api/tasks.js';
 
 import Task from './Task.jsx';
-// import Venue from './Venue.jsx'
+import VenueList from './VenueList.jsx'
 
 
 import MainAd from './MainAd.jsx'
@@ -23,11 +23,14 @@ class App extends Component {
     modes = ['main-fullscreen', 'main-menus', 'restaurant-venues']
 
     count = 1;
+
+    this.handleClickVenues = this.handleClickVenues.bind(this)
     // setInterval(() => {
     //   this.setState(Object.assign(this.state, {mode: modes[count % modes.length]}));
     //   console.log("State changed: mode = " + this.state.mode)
     //   count += 1;
     // }, 10000);
+    // this.handleOptionClick = this.handleOptionClick.bind(this)
   }
   getVenues() {
     var params = {};
@@ -54,40 +57,31 @@ class App extends Component {
     ReactDOM.findDOMNode(this.refs.textInput).value = '';
   }
 
-  renderTasks() {
-    return this.props.tasks.map((task) => (
-      <Task key={task._id} task={task} />
-    ));
+  handleClickVenues() {
+    this.setState({mode: 'restaurant-venues'})
   }
 
-  renderVenues() {
-    // console.log(this.state.venues)
-    return this.state.venues.map((venue) => (
-      <li key={venue.id}>{venue.name}</li>
-    ));
+  handleClickNews() {
+    console.log('Clicked news')
+  }
+
+  handleClickTickets() {
+    console.log('Clicked Tickets')
+  }
+
+  handleClickSchedules() {
+    console.log('Clicked schedules')
   }
 
   render() {
 
-    let applicationDiv;
-    switch (this.state.mode) {
-      case 'restaurant-venues':
-        applicationDiv = (<div><ul>
-          {this.renderVenues()}
-        </ul></div>);
-        break;
-      default:
-        applicationDiv = null;
-        break;
-    }
-
     return (
       <div className="container">
         <MainAd mode={this.state.mode} />
+        <VenueList mode={this.state.mode} venues={this.state.venues} />
 
-          {applicationDiv}
 
-        <OptionBar mode={this.state.mode} />
+        <OptionBar mode={this.state.mode} clickHandlers={{venues: this.handleClickVenues, news: this.handleClickNews, tickets: this.handleClickTickets, schedules: this.handleClickSchedules}}/>
         <LocalAd mode={this.state.mode} />
 
 
