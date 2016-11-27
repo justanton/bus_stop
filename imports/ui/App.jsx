@@ -91,10 +91,6 @@ class App extends Component {
             ));
           }
 
-          renderDefaultMap() {
-            return GoogleMaps.load();
-          }
-
 
           new_form() {
             Session.set("user_message", document.getElementById("mess_board").value);
@@ -108,11 +104,6 @@ class App extends Component {
                 applicationDiv = (<div><ul>
                   {this.renderVenues()}
                 </ul></div>);
-                break;
-              case 'map':
-                applicationDiv = (<div>
-                  {this.renderDefaultMap()}
-                </div>);
                 break;
               default:
                 applicationDiv = null;

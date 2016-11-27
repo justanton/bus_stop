@@ -125,6 +125,14 @@ header .hide-completed {
   }
 }
 
+.slider-container {
+  margin: 0 auto;
+  padding: 40px;
+  width: 80%;
+  color: #333;
+  background: #419be0;
+}
+
 #main-ad.active {
   transition: margin-top ease-in 0.4s, margin-left ease-in 0.4s, height ease-in 0.4s, width ease-in 0.4s;
   margin-top: 2vh;

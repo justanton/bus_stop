@@ -16,7 +16,6 @@ class OptionBar extends React.Component {
         }
         return (
             <section id="option-bar" className={className}>
-
                 <button id="venues-btn" className="option-bar-btn" onClick={this.props.clickHandlers.venues}>
                     Show local restaurants
                 </button>

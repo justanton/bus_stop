@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import GoogleMap from '../api/GoogleMap';
+import GoogleMap from './GoogleMap';
 
 function handleMapOptions() {
   return {
-    center: new google.maps.LatLng(-37.8136, 144.9631),
-    zoom: 8,
+    center: new google.maps.LatLng(60.1690454, 24.9407348),
+    zoom: 15,
   };
 }
 
