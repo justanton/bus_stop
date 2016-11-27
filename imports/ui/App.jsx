@@ -15,7 +15,8 @@ import OptionBar from './OptionBar.jsx'
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {mode: 'main-menus', venues: []}
+    this.state = { mode: 'map'}
+    //this.state = {mode: 'main-menus', venues: []}
 
     this.getVenues();
 
@@ -66,6 +67,10 @@ class App extends Component {
     ));
   }
 
+  renderDefaultMap() {
+    return GoogleMaps.load();
+  }
+
 
   new_form() {
     Session.set("user_message", document.getElementById("mess_board").value);
@@ -80,11 +85,15 @@ class App extends Component {
           {this.renderVenues()}
         </ul></div>);
         break;
+      case 'map':
+        applicationDiv = (<div>
+          {this.renderDefaultMap()}
+        </div>);
+        break;
       default:
         applicationDiv = null;
         break;
     }
-
     return (
     <div className="container">
       <header>
