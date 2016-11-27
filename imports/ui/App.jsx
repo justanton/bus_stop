@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { createContainer } from 'meteor/react-meteor-data';
-
+import { Session } from 'meteor/session'
 import { Tasks } from '../api/tasks.js';
 
 import Task from './Task.jsx';
@@ -12,11 +12,12 @@ import MainAd from './MainAd.jsx'
 import LocalAd from './LocalAd.jsx'
 import OptionBar from './OptionBar.jsx'
 
+
 // App component - represents the whole app
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {mode: 'main-menus', venues: []}
+    this.state = { mode: 'main-menus', venues: []}
 
     this.getVenues();
 
@@ -32,6 +33,7 @@ class App extends Component {
     // }, 10000);
     // this.handleOptionClick = this.handleOptionClick.bind(this)
   }
+
   getVenues() {
     var params = {};
     params.query = 'Food';
@@ -83,19 +85,85 @@ class App extends Component {
 
         <OptionBar mode={this.state.mode} clickHandlers={{venues: this.handleClickVenues, news: this.handleClickNews, tickets: this.handleClickTickets, schedules: this.handleClickSchedules}}/>
         <LocalAd mode={this.state.mode} />
+          {/*renderVenues() {
+            return this.state.venues.map((venue) => (
+              <li key={venue.id}>{venue.name}</li>
+            ));
+          }
+
+          renderDefaultMap() {
+            return GoogleMaps.load();
+          }
 
 
+          new_form() {
+            Session.set("user_message", document.getElementById("mess_board").value);
+          }
+
+          render() {
+
+            let applicationDiv;
+            switch (this.state.mode) {
+              case 'restaurant-venues':
+                applicationDiv = (<div><ul>
+                  {this.renderVenues()}
+                </ul></div>);
+                break;
+              case 'map':
+                applicationDiv = (<div>
+                  {this.renderDefaultMap()}
+                </div>);
+                break;
+              default:
+                applicationDiv = null;
+                break;
+            }
+            return (
+            <div className="container">
+              <header>
+                  <h1>Community Voice</h1>
+                  <h2>Number of messages: { Tasks.find().count()} </h2>
+
+                  <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
+                    <input
+                      type="text"
+                      id="mess_board"
+                      onSubmit={this.new_form}
+                      onChange={this.new_form}
+                      ref="textInput"
+                      placeholder="Write your message here"
+                    />
+                  </form>
+
+                  <MainAd mode={this.state.mode} />
+
+                    {applicationDiv}
+
+                  <OptionBar mode={this.state.mode} />
+                  <LocalAd mode={this.state.mode} />
+
+              </header>
+
+              {console.log(Session.get("user_message"))};*/}
+        {/*<MainAd fullscreen={this.state.fullscreen} />
+        <OptionBar fullscreen={this.state.fullscreen} />
+        <LocalAd fullscreen={this.state.fullscreen} />*/}
+
+        {/*<ul>
+          {this.renderTasks()}
+          {this.renderVenues()}
+        </ul>*/}
       </div>
     );
   }
 }
 
 App.propTypes = {
-  tasks: PropTypes.array.isRequired,
+  tasks: PropTypes.array.isRequired
 };
 
 export default createContainer(() => {
   return {
-    tasks: Tasks.find({}, { sort : { createdAt: -1 }}).fetch()
+    tasks: Tasks.find({}, { sort : { createdAt: -1 }}).fetch(),
   };
 }, App);
